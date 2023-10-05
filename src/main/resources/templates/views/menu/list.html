@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>List Menu</h1>
+<h3 style="margin: 20px 0">
+  <a href="/menu/add"> Add new Menu</a>
+</h3>
+<h3 style="margin: 20px 0">
+  <a href="/">HomePage</a>
+</h3>
+<form action="" style="margin: 20px 0">
+  <input type="text" name="name" th:value="${name}">
+  <button type="submit">Search</button>
+</form>
+<table border="10" cellpadding="20" cellspacing="10">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th colspan="2">Action</th>
+  </tr>
+  <tr th:each="m:${menu.content}">
+    <td th:text="${m.id}"></td>
+    <td th:text="${c.name}"></td>
+    <td th:text="${c.description}"></td>
+    <td th:text="${c.status}"></td>
+    <td><a th:href="@{|/menu/edit/${c.id}|}">Edit</a></td>
+    <td><a th:href="@{|/menu/delete/${c.id}|}">Delete</a></td>
+  </tr>
+</table>
+<ul>
+  <li><a th:href="@{|menu/?page=${menu.getNumber()-1}&size=${menu.getSize()}&name=${name}|}" th:if="${menu.hasPrevious()}">Prev</a></li>
+  <li th:text="|${menu.getNumber()}/${menu.getTotalPages()}|"></li>
+  <li><a th:href="@{|menu/?page=${menu.getNumber()+1}&size=${menu.getSize()}&name=${name}|}" th:if="${menu.hasNext()}">Next</a></li>
+</ul>
+</body>
+</html>

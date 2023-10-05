@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>List Category</h1>
+<h3 style="margin: 20px 0">
+  <a href="/category/add"> Add new Category</a>
+</h3>
+<h3 style="margin: 20px 0">
+  <a href="/">HomePage</a>
+</h3>
+<form action="" style="margin: 20px 0">
+  <input type="text" name="name" th:value="${name}">
+  <button type="submit">Search</button>
+</form>
+<table border="10" cellpadding="20" cellspacing="10">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th colspan="2">Action</th>
+  </tr>
+  <tr th:each="c:${category}">
+    <td th:text="${c.id}"></td>
+    <td th:text="${c.name}"></td>
+    <td th:text="${c.description}"></td>
+    <td th:text="${c.status}"></td>
+    <td><a th:href="@{|/category/edit/${c.id}|}">Edit</a></td>
+    <td><a th:href="@{|/category/delete/${c.id}|}">Delete</a></td>
+  </tr>
+</table>
+<ul>
+  <li><a th:href="@{|category/?page=${category.getNumber()-1}&size=${category.getSize()}&name=${name}|}" th:if="${category.hasPrevious()}">Prev</a></li>
+  <li th:text="|${category.getNumber()}/${category.getTotalPages()}|"></li>
+  <li><a th:href="@{|category/?page=${category.getNumber()+1}&size=${category.getSize()}&name=${name}|}" th:if="${category.hasNext()}">Next</a></li>
+</ul>
+</body>
+</html>
