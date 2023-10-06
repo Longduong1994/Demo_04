@@ -2,7 +2,7 @@ package demo_04.controller;
 
 import demo_04.model.entity.Category;
 import demo_04.model.service.impl.category.ICategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/category")
 public class CategoryController {
-    @Autowired
-    private ICategoryService categoryService;
+
+    private final ICategoryService categoryService;
     @GetMapping
     public String findAllCategory(Model model, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("category", categoryService.findAll(name, page, size));

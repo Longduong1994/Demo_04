@@ -34,9 +34,16 @@
   </tr>
 </table>
 <ul>
-  <li><a th:href="@{|category/?page=${category.getNumber()-1}&size=${category.getSize()}&name=${name}|}" th:if="${category.hasPrevious()}">Prev</a></li>
+  <li th:if="${category.getNumber() == 1}">
+    <a th:href="@{/category}">Prev</a>
+  </li>
+  <li th:unless="${category.getNumber() == 1}">
+    <a th:href="@{|/category/?page=${category.getNumber() - 1}&size=${category.getSize()}&name=${name}|}" th:if="${category.hasPrevious()}">Prev</a>
+  </li>
   <li th:text="|${category.getNumber()}/${category.getTotalPages()}|"></li>
-  <li><a th:href="@{|category/?page=${category.getNumber()+1}&size=${category.getSize()}&name=${name}|}" th:if="${category.hasNext()}">Next</a></li>
+  <li th:if="${category.hasNext()}">
+    <a th:href="@{|/category/?page=${category.getNumber() + 1}&size=${category.getSize()}&name=${name}|}">Next</a>
+  </li>
 </ul>
 </body>
 </html>

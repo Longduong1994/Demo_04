@@ -20,21 +20,29 @@
   <tr>
     <th>ID</th>
     <th>Name</th>
+    <th>Image</th>
     <th>Description</th>
+    <th>Category</th>
     <th>Status</th>
     <th colspan="2">Action</th>
   </tr>
   <tr th:each="m:${menu.content}">
     <td th:text="${m.id}"></td>
-    <td th:text="${c.name}"></td>
-    <td th:text="${c.description}"></td>
-    <td th:text="${c.status}"></td>
-    <td><a th:href="@{|/menu/edit/${c.id}|}">Edit</a></td>
-    <td><a th:href="@{|/menu/delete/${c.id}|}">Delete</a></td>
+    <td th:text="${m.name}"></td>
+    <td> <img th:src="${m.image}" style="width: 50px"> </td>
+    <td th:text="${m.description}"></td>
+    <td th:text="${m.category.name}"></td>
+    <td th:text="${m.status}"></td>
+    <td><a th:href="@{|/menu/edit/${m.id}|}">Edit</a></td>
+    <td><a th:href="@{|/menu/delete/${m.id}|}">Delete</a></td>
   </tr>
 </table>
 <ul>
-  <li><a th:href="@{|menu/?page=${menu.getNumber()-1}&size=${menu.getSize()}&name=${name}|}" th:if="${menu.hasPrevious()}">Prev</a></li>
+  <li th:if="${menu.getNumber() == 1}">
+    <a th:href="@{/category}">Prev</a>
+  </li>
+  <li th:unless="${menu.getNumber() == 1}">
+    <a th:href="@{|menu/?page=${menu.getNumber()-1}&size=${menu.getSize()}&name=${name}|}" th:if="${menu.hasPrevious()}">Prev</a></li>
   <li th:text="|${menu.getNumber()}/${menu.getTotalPages()}|"></li>
   <li><a th:href="@{|menu/?page=${menu.getNumber()+1}&size=${menu.getSize()}&name=${name}|}" th:if="${menu.hasNext()}">Next</a></li>
 </ul>
